@@ -10,7 +10,7 @@ namespace Vidly.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please type customer's name.")]
         [StringLength(255)]
         public string Name { get; set; }
 
@@ -22,6 +22,7 @@ namespace Vidly.Models
         public int MembershipTypeId { get; set; } // recognizes as foreign key but do not load the object completely        
 
         [Display(Name = "Date of Birth")]
+        [Min18YearsIfMember]
         public DateTime? BirthDate { get; set; }
     }    
 }

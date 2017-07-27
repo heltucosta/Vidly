@@ -29,18 +29,31 @@ namespace Vidly.Controllers
 
             var model = new NewCustomerViewModel()
             {
-                MembershipTypes = membershiptTypes
+                MembershipTypes = membershiptTypes,
+                Customer = new Customer()
             };
 
             return View(model);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Customer customer)
         {
             // Even though the view is sending a NewCustomerViewModel, .Net Understands
             // the casting to Customer since is part of the model and makes the model binding
             // occur automatically when saving to database
+
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new NewCustomerViewModel()
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+                return View("New", viewModel);
+            }
+
             if(customer.Id == 0)
             {
                 _context.Customers.Add(customer);
