@@ -19,7 +19,7 @@ namespace Vidly.DTOs
 
         public int MembershipTypeId { get; set; } // recognizes as foreign key but do not load the object completely        
 
-        [Min18YearsIfMember]
+        //[Min18YearsIfMember]
         public DateTime? BirthDate { get; set; }
     }
 }
