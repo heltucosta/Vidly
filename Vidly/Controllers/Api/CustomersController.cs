@@ -7,9 +7,11 @@ using System.Web.Http;
 using Vidly.Models;
 using AutoMapper;
 using Vidly.DTOs;
+using System.Web.Http.Cors;
 
 namespace Vidly.Controllers.Api
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CustomersController : ApiController
     {
         private ApplicationDbContext _context;
@@ -75,7 +77,7 @@ namespace Vidly.Controllers.Api
             //Mapper.Map<CustomerDto, Customer>(customerDto, customerInDb);
             Mapper.Map(customerDto, customerInDb);
 
-            _context.SaveChanges();
+            _context.SaveChanges(); 
             return Ok();
         }
 

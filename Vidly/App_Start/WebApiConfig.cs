@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Newtonsoft.Json.Serialization;
+using System.Web.Http;
 
 namespace Vidly
 {
@@ -14,6 +15,8 @@ namespace Vidly
 
             // Rotas da API da Web
             config.MapHttpAttributeRoutes();
+
+            config.EnableCors();
 
             var settings = config.Formatters.JsonFormatter.SerializerSettings;
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();

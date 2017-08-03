@@ -8,7 +8,7 @@ using Vidly.Models;
 using Vidly.ViewModels;
 
 namespace Vidly.Controllers
-{
+{    
     public class CustomerController : Controller
     {
         private ApplicationDbContext _context;
