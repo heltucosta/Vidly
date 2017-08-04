@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Vidly.Models;
 using Vidly.DTOs;
+using System.Data.Entity;
 using AutoMapper;
 
 namespace Vidly.Controllers.Api
@@ -29,14 +30,14 @@ namespace Vidly.Controllers.Api
 
         [Route("api/movies/{id}")]
         [HttpGet]
-        public MovieDto GetMovie(int id)
+        public IHttpActionResult GetMovie(int id)
         {
-            var movie= _context.Movies.Single(m => m.Id == id);
+            var movie= _context.Movies.Include(m => m.Genre).Single(m => m.Id == id);
 
             if (movie == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
-            return Mapper.Map<Movie, MovieDto>(movie);
+            return Ok(Mapper.Map<Movie, MovieDto>(movie));
         }
 
         [Route("api/movies")]
